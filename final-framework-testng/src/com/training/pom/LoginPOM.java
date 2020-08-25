@@ -13,26 +13,64 @@ public class LoginPOM {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(id="login")
-	private WebElement userName; 
+	@FindBy(xpath="//a[@class='sign-in']")
+	private WebElement Login; 
 	
-	@FindBy(id="password")
-	private WebElement password;
+	@FindBy(linkText="Register")
+	private WebElement Register;
+	
+	@FindBy(id="user_login")
+	private WebElement user_login;
+	
+	@FindBy(id="user_pass")
+	private WebElement user_pass;
+	
+	@FindBy(name="login")
+	private WebElement login1;
+	
+	@FindBy(id="email")
+	private WebElement email;
+	
+	@FindBy(id="first-name")
+	private WebElement first_name;
+	
+	@FindBy(id="last-name")
+	private WebElement last_name;
+	
+	@FindBy(className="register-button")
+	private WebElement register_button;
 	
 	@FindBy(id="formLogin_submitAuth")
 	private WebElement loginBtn; 
 	
-	public void sendUserName(String userName) {
-		this.userName.clear();
-		this.userName.sendKeys(userName);
-	}
+	//public void sendUserName(String userName) {
+	//	this.userName.clear();
+	//	this.userName.sendKeys(userName);
+	//}
 	
-	public void sendPassword(String password) {
+	/*public void sendPassword(String password) {
 		this.password.clear(); 
 		this.password.sendKeys(password); 
-	}
+	}*/
+	
 	
 	public void clickLoginBtn() {
-		this.loginBtn.click(); 
+		this.Login.click(); 
 	}
+	
+	
+	public void enteruser_login() {
+		this.user_login.sendKeys("admin");
+	}
+	
+	public void enterPassword() {
+		this.user_pass.sendKeys("admin@123");
+	}
+	public void clicklogin() {
+		this.login1.click();
+	}
+
+	
+		
+	
 }

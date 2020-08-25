@@ -13,18 +13,20 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
+import com.training.pom.ForgotPOM;
 import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class LoginTests {
-
+@Test
+public class FogotPassword {
 	private WebDriver driver;
-	private String adminURL;
-	private LoginPOM loginPOM;
+	private String baseUrl;
+	private ForgotPOM forgotPOM;
 	private static Properties properties;
+	private Assert passed;
 	//private ScreenShot screenShot;
-	
+	//private Object Register;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {
@@ -36,11 +38,11 @@ public class LoginTests {
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		loginPOM = new LoginPOM(driver); 
-		adminURL = properties.getProperty("adminURL");
+		forgotPOM = new ForgotPOM(driver); 
+		baseUrl = properties.getProperty("baseURL");
 		//screenShot = new ScreenShot(driver); 
 		// open the browser 
-		driver.get(adminURL);
+		driver.get(baseUrl);
 	}
 	
 	@AfterMethod
@@ -48,17 +50,23 @@ public class LoginTests {
 		Thread.sleep(1000);
 		driver.quit();
 	}
-	@Test
-	public void validLoginTests() throws InterruptedException {
-					
-			loginPOM.enteruser_login();
-			loginPOM.enterPassword();
-			Thread.sleep(3000);
-			loginPOM.clicklogin();
-			String actualText=driver.findElement(By.xpath("//h3[contains(text(),'Recently Published')]")).getText();
-			System.out.println(actualText);
-			String ExpectedText = "Recently Published";
-			Assert.assertEquals(ExpectedText, actualText);
-			
+	public void validRegisterTest() {
+		
+		forgotPOM.clickLoginBtn();
+		forgotPOM.clickLost();
+		forgotPOM.enteremail();
+		forgotPOM.clickforgot1();
+		
+		String actualText=driver.findElement(By.xpath("//p[contains(text(),'The email could not be sent.')]")).getText();
+		System.out.println(actualText);
+		String ExpectedText = "A confirmation link has been sent to your email address";
+		Assert.assertEquals(ExpectedText, actualText);
+		
+		
+		}		
+		//loginPOM.sendUserName("admin");
+		//loginPOM.sendPassword("admin@123");
+		//loginPOM.clickLoginBtn(); 
+		//screenShot.captureScreenShot("First");
 	}
-}
+
